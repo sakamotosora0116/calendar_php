@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  php:
+    container_name: calendar-php
+    volumes:
+      - ./php/php.ini:/usr/local/etc/php/php.ini
+      - ./html:/var/www/html
+    ports:
+      - 8080:80
+    build: ./php
+    image: calendar_img-php
+
+  phpmyadmin:
+    container_name: calendar-phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=mysql
+      - PMA_USER=test
+      - PMA_PASSWORD=test
+    ports:
+      - 4040:80
+    volumes:
+      - ./phpmyadmin/sessions:/sessions
+
+volumes:
+  db-data:
